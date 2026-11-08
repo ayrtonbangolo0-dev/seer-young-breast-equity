@@ -1,0 +1,7 @@
+# SEER data are licensed under a data use agreement and must not be shared
+data/
+output/
+*.pkl
+*.csv
+*.txt
+!requirements.txt

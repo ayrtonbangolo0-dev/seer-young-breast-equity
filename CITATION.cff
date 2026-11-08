@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite it as below."
+title: "Analysis code: Post-pandemic stage migration and racial and ethnic gaps in treatment response and survival among women aged 20-49 years with breast cancer (SEER 17, 2010-2023)"
+authors:
+  - family-names: Bangolo
+    given-names: Ayrton
+    orcid: "https://orcid.org/0000-0002-2133-2480"
+    affiliation: "Hackensack Meridian John Theurer Cancer Center"
+  - family-names: Fwelo
+    given-names: Pierre
+  - family-names: Baker
+    given-names: Auda
+  - family-names: Bangolo
+    given-names: Serena
+  - family-names: Bukasa-Kakamba
+    given-names: John
+version: 1.0.0
+date-released: 2026-11-08
+license: MIT
