@@ -29,8 +29,8 @@ ax.text(2.25,ys[0]+0.9,"OR (95% CI)",fontsize=7.5,fontweight="bold")
 ax.annotate("AIAN lower limit 0.18",xy=(0.3,ys[5]),xytext=(0.31,ys[5]+0.45),fontsize=6.5,color=DARK)
 fig.tight_layout(); fig.savefig(OUT+"Figure1.png", bbox_inches="tight", pad_inches=0.05); fig.savefig(OUT+"Figure1.pdf", bbox_inches="tight", pad_inches=0.05); plt.close(fig)
 # ---------- Figure 2: mediation cumulative
-med=[("Black vs. White",["Biology","+ Stage","+ Area factors & marital","+ Treatment"],[19.5,41.6,47.9,47.7],[17.3,38.0,41.1,40.9],[22.6,44.9,53.7,52.3],"HR 2.05 → 1.46"),
-     ("Hispanic vs. White",["Biology","+ Stage","+ Area factors & marital","+ Treatment"],[28.6,47.0,51.2,56.9],[23.5,37.8,43.5,48.1],[35.4,57.0,62.1,68.9],"HR 1.34 → 1.13")]
+med=[("Black vs. White",["Biology","+ Stage","+ Area factors & marital","+ Treatment"],[19.5,41.6,47.9,47.7],[17.1,37.9,42.1,40.9],[22.3,45.5,54.4,54.2],"HR 2.05 → 1.46"),
+     ("Hispanic vs. White",["Biology","+ Stage","+ Area factors & marital","+ Treatment"],[28.6,47.0,51.2,56.9],[23.3,39.2,42.4,47.0],[35.4,58.2,65.0,69.5],"HR 1.34 → 1.13")]
 fig,axes=plt.subplots(1,2,figsize=(6.5,3.0),sharex=True)
 shades=["#c6daf3","#8fb7ea","#5a95df","#2a78d6"]
 for ax,(t,labs,pm,lo,hi,note) in zip(axes,med):
@@ -58,6 +58,7 @@ ax.set_yscale("log"); ax.yaxis.set_minor_formatter(matplotlib.ticker.NullFormatt
 ax.set_xticks(x); ax.set_xticklabels(per); ax.set_xlim(-0.5,2.5)
 ax.set_ylabel("Hazard ratio for death, Black vs. White (log scale)")
 ax.legend(frameon=False,fontsize=7.5,loc="lower left")
+fig.tight_layout(); fig.savefig(OUT+"Figure3.png", bbox_inches="tight", pad_inches=0.05); fig.savefig(OUT+"Figure3.pdf", bbox_inches="tight", pad_inches=0.05); plt.close(fig)
 fig.tight_layout(); fig.savefig(OUT+"Figure3.png", bbox_inches="tight", pad_inches=0.05); fig.savefig(OUT+"Figure3.pdf", bbox_inches="tight", pad_inches=0.05); plt.close(fig)
 # ---------- submission TIFFs: RGB, 600 dpi, LZW-compressed
 from PIL import Image
