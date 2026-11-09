@@ -5,11 +5,12 @@ plt.rcParams.update({"font.family":"Liberation Sans","pdf.fonttype":42,"font.siz
 BLUE="#2a78d6"; GREY="#8a8984"; DARK="#3a3a38"
 OUT="output/"
 # ---------- Figure 1: forest
-rows=[("All women 20–49",1.044,0.958,1.138,"Overall"),
-("NH White",0.942,0.820,1.082,"Race/ethnicity"),("NH Black",1.250,1.026,1.523,"Race/ethnicity"),("Hispanic",1.227,1.018,1.481,"Race/ethnicity"),
-("NH Asian/Pacific Islander",0.922,0.722,1.177,"Race/ethnicity"),("NH American Indian/Alaska Native",0.451,0.181,1.122,"Race/ethnicity"),
-("HR+/HER2−",1.012,0.893,1.148,"Subtype"),("HR+/HER2+",1.140,0.941,1.381,"Subtype"),("HR−/HER2+",1.000,0.761,1.315,"Subtype"),("Triple-negative",1.189,0.959,1.474,"Subtype"),
-("Age 20–39",1.036,0.903,1.188,"Age"),("Age 40–49",1.048,0.940,1.169,"Age")]
+_s5 = pd.read_excel("output/results_v9_review2.xlsx", sheet_name="S5a_subgroups").set_index("group")
+_lab = [("All women 20-49","All women 20–49","Overall"),("NH White","NH White","Race/ethnicity"),("NH Black","NH Black","Race/ethnicity"),("Hispanic","Hispanic","Race/ethnicity"),
+        ("NH API","NH Asian/Pacific Islander","Race/ethnicity"),("NH AIAN","NH American Indian/Alaska Native","Race/ethnicity"),
+        ("HR+/HER2−","HR+/HER2−","Subtype"),("HR+/HER2+","HR+/HER2+","Subtype"),("HR−/HER2+","HR−/HER2+","Subtype"),("Triple-negative","Triple-negative","Subtype"),
+        ("Age 20-39","Age 20–39","Age"),("Age 40-49","Age 40–49","Age")]
+rows=[(lab, _s5.loc[k,"post_OR"], _s5.loc[k,"post_lo"], _s5.loc[k,"post_hi"], g) for k,lab,g in _lab]
 fig,ax=plt.subplots(figsize=(6.5,4.2))
 y=0; ys=[]; prev=None
 for lab,o,l,h,g in rows:
@@ -26,7 +27,7 @@ ax.set_yticks(ys); ax.set_yticklabels([r[0] for r in rows],fontsize=7.5); ax.tic
 ax.spines["left"].set_visible(False)
 ax.set_xlabel("Odds ratio for distant stage, 2021–2023 vs. 2010–2019 trend (log scale)")
 ax.text(2.25,ys[0]+0.9,"OR (95% CI)",fontsize=7.5,fontweight="bold")
-ax.annotate("AIAN lower limit 0.18",xy=(0.3,ys[5]),xytext=(0.31,ys[5]+0.45),fontsize=6.5,color=DARK)
+ax.annotate(f"AIAN lower limit {rows[5][2]:.2f}",xy=(0.3,ys[5]),xytext=(0.31,ys[5]+0.45),fontsize=6.5,color=DARK)
 fig.tight_layout(); fig.savefig(OUT+"Figure1.png", bbox_inches="tight", pad_inches=0.05); fig.savefig(OUT+"Figure1.pdf", bbox_inches="tight", pad_inches=0.05); plt.close(fig)
 # ---------- Figure 2: mediation cumulative
 med=[("Black vs. White",["Biology","+ Stage","+ Area factors & marital","+ Treatment"],[19.5,41.6,47.9,47.7],[17.1,37.9,42.1,40.9],[22.3,45.5,54.4,54.2],"HR 2.05 → 1.46"),
@@ -44,8 +45,8 @@ for ax,(t,labs,pm,lo,hi,note) in zip(axes,med):
 fig.tight_layout(w_pad=2.5); fig.savefig(OUT+"Figure2.png", bbox_inches="tight", pad_inches=0.05); fig.savefig(OUT+"Figure2.pdf", bbox_inches="tight", pad_inches=0.05); plt.close(fig)
 # ---------- Figure 3: MBC Black-White HR by period
 per=["2010–2013","2014–2017","2018–2020"]
-hrp=[(1.289,1.074,1.549),(1.788,1.479,2.161),(1.687,1.341,2.122)]
-h2=[(1.559,1.216,1.997),(1.542,1.185,2.005),(1.107,0.726,1.688)]
+hrp=[(1.575,1.240,2.001),(1.737,1.356,2.226),(1.571,1.211,2.038)]
+h2=[(1.478,1.053,2.074),(1.652,1.155,2.363),(1.079,0.673,1.728)]
 fig,ax=plt.subplots(figsize=(4.2,3.2))
 x=np.arange(3)
 for vals,off,c,lab,mk in [(hrp,-0.08,BLUE,"HR+/HER2−","o"),(h2,0.08,GREY,"HER2+","s")]:
@@ -56,7 +57,7 @@ for vals,off,c,lab,mk in [(hrp,-0.08,BLUE,"HR+/HER2−","o"),(h2,0.08,GREY,"HER2
 ax.axhline(1,color=DARK,lw=0.8,ls="--")
 ax.set_yscale("log"); ax.yaxis.set_minor_formatter(matplotlib.ticker.NullFormatter()); ax.set_yticks([0.75,1,1.5,2]); ax.set_yticklabels(["0.75","1","1.5","2"]); ax.set_ylim(0.6,2.5)
 ax.set_xticks(x); ax.set_xticklabels(per); ax.set_xlim(-0.5,2.5)
-ax.set_ylabel("Hazard ratio for death, Black vs. White (log scale)")
+ax.set_ylabel("HR for death within 36 months,\nBlack vs. White (log scale)")
 ax.legend(frameon=False,fontsize=7.5,loc="lower left")
 fig.tight_layout(); fig.savefig(OUT+"Figure3.png", bbox_inches="tight", pad_inches=0.05); fig.savefig(OUT+"Figure3.pdf", bbox_inches="tight", pad_inches=0.05); plt.close(fig)
 fig.tight_layout(); fig.savefig(OUT+"Figure3.png", bbox_inches="tight", pad_inches=0.05); fig.savefig(OUT+"Figure3.pdf", bbox_inches="tight", pad_inches=0.05); plt.close(fig)

@@ -13,4 +13,5 @@ python python/analysis5.py                     # time-to-treatment coding diagno
 python python/analysis6.py                     # revision: race x period interaction, multiplicity, 2018 step, race x county type;
                                                #   metastatic single-model Cox, 3-y OS and RMST; response by era and missingness
 for P in black hispanic fg crmed; do PART=$P BOOT=500 python python/analysis7.py; done   # 500-replicate bootstraps (~2 h)
+BOOTR=300 python python/analysis8.py           # second review: interactions within county type, leave-one-registry-out; metastatic Cox truncated at 36 mo, PH tests, adjusted RMST; TTT with categorical year; CR excluding response NOS
 python python/cebp_figs.py                     # manuscript Figures 1-3 (TIFF/PDF)

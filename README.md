@@ -42,6 +42,7 @@ Outputs (tables as .xlsx/.csv, figures as .png/.tiff) are written to `output/`. 
 | `analysis4.py` | Preoperative chemotherapy in high-risk triple-negative and HER2-positive disease; histology |
 | `analysis5.py` | Time-to-treatment coding diagnostics; stage-shift post-period slope sensitivity |
 | `analysis6.py` | Revision analyses: race × post-period interaction and Holm/BH adjustment; 2018 staging step; race by county type; metastatic single-model Cox, 3-year OS and 36-month RMST; neoadjuvant response by era and missingness |
+| `analysis8.py` | Second review: race × post-period interaction within county type; leave-one-registry-out; metastatic Cox with follow-up truncated at 36 months, proportional-hazards tests and adjusted RMST; time to treatment with categorical year; complete response excluding response NOS |
 | `analysis7.py` | 500-replicate bootstraps for Fine–Gray, IORW mediation and response mediation (`PART=black|hispanic|fg|crmed`) |
 | `cebp_figs.py` | Manuscript Figures 1–3 |
 | `R/` | R versions of the main models (survival, cmprsk, data.table, ggplot2); set `SEER_DATA_DIR` to the folder with the exports |
