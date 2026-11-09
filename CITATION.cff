@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this code, please cite it as below."
-title: "Analysis code: Post-pandemic stage migration and racial and ethnic gaps in treatment response and survival among women aged 20-49 years with breast cancer (SEER 17, 2010-2023)"
+title: "Analysis code: Post-pandemic stage shift and racial and ethnic gaps in treatment response and survival among women aged 20-49 years with breast cancer (SEER 17, 2010-2023)"
 authors:
   - family-names: Bangolo
     given-names: Ayrton
@@ -14,6 +14,6 @@ authors:
     given-names: Serena
   - family-names: Bukasa-Kakamba
     given-names: John
-version: 1.0.0
+version: 1.1.0
 date-released: 2026-11-08
 license: MIT

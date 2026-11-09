@@ -10,4 +10,7 @@ BOOT=100 BOOTM=60 python python/analysis2.py   # Fine-Gray bootstrap, care-deliv
 BOOTM=100 python python/analysis3.py           # neoadjuvant response; de novo metastatic survival
 python python/analysis4.py                     # neoadjuvant use in high-risk disease; histology
 python python/analysis5.py                     # time-to-treatment coding diagnostics; stage-shift slope sensitivity
-python python/cebp_figs.py                     # manuscript Figures 1-3
+python python/analysis6.py                     # revision: race x period interaction, multiplicity, 2018 step, race x county type;
+                                               #   metastatic single-model Cox, 3-y OS and RMST; response by era and missingness
+for P in black hispanic fg crmed; do PART=$P BOOT=500 python python/analysis7.py; done   # 500-replicate bootstraps (~2 h)
+python python/cebp_figs.py                     # manuscript Figures 1-3 (TIFF/PDF)

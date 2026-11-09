@@ -1,4 +1,4 @@
-# Post-pandemic stage migration and racial/ethnic gaps in treatment response and survival among women aged 20–49 years with breast cancer (SEER 17, 2010–2023)
+# Post-pandemic stage shift and racial/ethnic gaps in treatment response and survival among women aged 20–49 years with breast cancer (SEER 17, 2010–2023)
 
 Analysis code for the manuscript submitted to *Cancer Epidemiology, Biomarkers & Prevention*.
 
@@ -41,6 +41,8 @@ Outputs (tables as .xlsx/.csv, figures as .png/.tiff) are written to `output/`. 
 | `analysis3.py` | Neoadjuvant complete response; de novo metastatic survival by period |
 | `analysis4.py` | Preoperative chemotherapy in high-risk triple-negative and HER2-positive disease; histology |
 | `analysis5.py` | Time-to-treatment coding diagnostics; stage-shift post-period slope sensitivity |
+| `analysis6.py` | Revision analyses: race × post-period interaction and Holm/BH adjustment; 2018 staging step; race by county type; metastatic single-model Cox, 3-year OS and 36-month RMST; neoadjuvant response by era and missingness |
+| `analysis7.py` | 500-replicate bootstraps for Fine–Gray, IORW mediation and response mediation (`PART=black|hispanic|fg|crmed`) |
 | `cebp_figs.py` | Manuscript Figures 1–3 |
 | `R/` | R versions of the main models (survival, cmprsk, data.table, ggplot2); set `SEER_DATA_DIR` to the folder with the exports |
 

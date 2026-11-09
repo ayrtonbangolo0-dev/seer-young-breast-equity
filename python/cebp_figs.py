@@ -1,6 +1,6 @@
 import numpy as np, pandas as pd, matplotlib
 matplotlib.use("Agg"); import matplotlib.pyplot as plt, matplotlib.ticker
-plt.rcParams.update({"font.family":"DejaVu Sans","font.size":8,"axes.spines.top":False,"axes.spines.right":False,"axes.linewidth":0.6,
+plt.rcParams.update({"font.family":"Liberation Sans","pdf.fonttype":42,"font.size":8,"axes.spines.top":False,"axes.spines.right":False,"axes.linewidth":0.6,
                      "xtick.major.width":0.6,"ytick.major.width":0.6,"lines.linewidth":1.2,"savefig.dpi":600})
 BLUE="#2a78d6"; GREY="#8a8984"; DARK="#3a3a38"
 OUT="output/"
@@ -27,10 +27,10 @@ ax.spines["left"].set_visible(False)
 ax.set_xlabel("Odds ratio for distant stage, 2021–2023 vs. 2010–2019 trend (log scale)")
 ax.text(2.25,ys[0]+0.9,"OR (95% CI)",fontsize=7.5,fontweight="bold")
 ax.annotate("AIAN lower limit 0.18",xy=(0.3,ys[5]),xytext=(0.31,ys[5]+0.45),fontsize=6.5,color=DARK)
-fig.tight_layout(); fig.savefig(OUT+"Figure1.png"); fig.savefig(OUT+"Figure1.tiff"); plt.close(fig)
+fig.tight_layout(); fig.savefig(OUT+"Figure1.png", bbox_inches="tight", pad_inches=0.05); fig.savefig(OUT+"Figure1.pdf", bbox_inches="tight", pad_inches=0.05); plt.close(fig)
 # ---------- Figure 2: mediation cumulative
-med=[("Black vs. White",["Biology","+ Stage","+ Area SES & marital","+ Treatment"],[19.5,41.6,47.9,47.7],[17.3,38.0,41.1,40.9],[22.6,44.9,53.7,52.3],"HR 2.05 → 1.46"),
-     ("Hispanic vs. White",["Biology","+ Stage","+ Area SES & marital","+ Treatment"],[28.6,47.0,51.2,56.9],[23.5,37.8,43.5,48.1],[35.4,57.0,62.1,68.9],"HR 1.34 → 1.13")]
+med=[("Black vs. White",["Biology","+ Stage","+ Area factors & marital","+ Treatment"],[19.5,41.6,47.9,47.7],[17.3,38.0,41.1,40.9],[22.6,44.9,53.7,52.3],"HR 2.05 → 1.46"),
+     ("Hispanic vs. White",["Biology","+ Stage","+ Area factors & marital","+ Treatment"],[28.6,47.0,51.2,56.9],[23.5,37.8,43.5,48.1],[35.4,57.0,62.1,68.9],"HR 1.34 → 1.13")]
 fig,axes=plt.subplots(1,2,figsize=(6.5,3.0),sharex=True)
 shades=["#c6daf3","#8fb7ea","#5a95df","#2a78d6"]
 for ax,(t,labs,pm,lo,hi,note) in zip(axes,med):
@@ -41,19 +41,26 @@ for ax,(t,labs,pm,lo,hi,note) in zip(axes,med):
     ax.set_yticks(yy); ax.set_yticklabels(labs); ax.tick_params(axis="y",length=0)
     ax.set_title(f"{t}\n{note} after all blocks",fontsize=8,loc="left",fontweight="bold")
     ax.set_xlim(0,80); ax.set_xlabel("% of excess hazard mediated (cumulative)")
-fig.tight_layout(w_pad=2.5); fig.savefig(OUT+"Figure2.png", bbox_inches="tight", pad_inches=0.05); fig.savefig(OUT+"Figure2.tiff"); plt.close(fig)
+fig.tight_layout(w_pad=2.5); fig.savefig(OUT+"Figure2.png", bbox_inches="tight", pad_inches=0.05); fig.savefig(OUT+"Figure2.pdf", bbox_inches="tight", pad_inches=0.05); plt.close(fig)
 # ---------- Figure 3: MBC Black-White HR by period
 per=["2010–2013","2014–2017","2018–2020"]
-hrp=[(1.319,1.094,1.589),(1.786,1.466,2.177),(1.717,1.354,2.176)]
-h2=[(1.651,1.284,2.123),(1.576,1.201,2.069),(1.069,0.684,1.671)]
+hrp=[(1.289,1.074,1.549),(1.788,1.479,2.161),(1.687,1.341,2.122)]
+h2=[(1.559,1.216,1.997),(1.542,1.185,2.005),(1.107,0.726,1.688)]
 fig,ax=plt.subplots(figsize=(4.2,3.2))
 x=np.arange(3)
 for vals,off,c,lab,mk in [(hrp,-0.08,BLUE,"HR+/HER2−","o"),(h2,0.08,GREY,"HER2+","s")]:
     v=np.array(vals); ax.errorbar(x+off,v[:,0],yerr=[v[:,0]-v[:,1],v[:,2]-v[:,0]],fmt=mk+"-",color=c,ms=5,capsize=2,lw=1.2,label=lab)
-    for xi,vi in zip(x+off,v[:,0]): ax.text(xi+(-0.1 if off<0 else 0.1),vi,f"{vi:.2f}",ha="right" if off<0 else "left",va="center",fontsize=7)
+    for k,(xi,vi) in enumerate(zip(x+off,v[:,0])):
+        if off<0 and k==2: ax.text(xi-0.1,vi/1.03,f"{vi:.2f}",ha="right",va="top",fontsize=7)
+        else: ax.text(xi+(-0.1 if off<0 else 0.1),vi,f"{vi:.2f}",ha="right" if off<0 else "left",va="center",fontsize=7)
 ax.axhline(1,color=DARK,lw=0.8,ls="--")
 ax.set_yscale("log"); ax.yaxis.set_minor_formatter(matplotlib.ticker.NullFormatter()); ax.set_yticks([0.75,1,1.5,2]); ax.set_yticklabels(["0.75","1","1.5","2"]); ax.set_ylim(0.6,2.5)
 ax.set_xticks(x); ax.set_xticklabels(per); ax.set_xlim(-0.5,2.5)
 ax.set_ylabel("Hazard ratio for death, Black vs. White (log scale)")
 ax.legend(frameon=False,fontsize=7.5,loc="lower left")
-fig.tight_layout(); fig.savefig(OUT+"Figure3.png"); fig.savefig(OUT+"Figure3.tiff"); plt.close(fig)
+fig.tight_layout(); fig.savefig(OUT+"Figure3.png", bbox_inches="tight", pad_inches=0.05); fig.savefig(OUT+"Figure3.pdf", bbox_inches="tight", pad_inches=0.05); plt.close(fig)
+# ---------- submission TIFFs: RGB, 600 dpi, LZW-compressed
+from PIL import Image
+for i in (1, 2, 3):
+    im = Image.open(OUT + f"Figure{i}.png"); bg = Image.new("RGB", im.size, "white"); bg.paste(im, mask=im.split()[-1])
+    bg.save(OUT + f"Figure{i}.tif", compression="tiff_lzw", dpi=(600, 600))
